@@ -1,0 +1,11 @@
+<a href='/sp/logout'>登出</a>
+
+<h1>HELLO</h1>
+
+Index page says hello<br />
+
+<ul>
+<?php foreach($this->websiteDocs as $wd) { ?>
+<li><a target='_blank' href='http://<?php echo $wd->getUniqueSubdomain()?>.<?php echo $this->domainClient?>'><?php echo $wd->getUniqueSubdomain()?></a></li>
+<?php } ?>
+</ul>
