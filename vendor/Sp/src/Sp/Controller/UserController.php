@@ -31,14 +31,15 @@ class UserController extends AbstractActionController
     }
     
     public function registerAction()
-    {	$sm = $this->getServiceLocator();
+    {
+    	$sm = $this->getServiceLocator();
     	
     	$form = new RegisterForm();
     	
     	if($this->getRequest()->isPost()) {
     		$postData = $this->getRequest()->getPost();
     		$subdomainName = $postData['subdomainName'];
-    		$fsAuth = new FucmsSessionAuth();
+    		$fsAuth = new FucmsSessionAuth($sm);
     		$response = $fsAuth->registerUser($postData);
     		if($response->result == true) {
     			//send validation email
