@@ -10,8 +10,10 @@ class OperationController extends AbstractActionController
 {
     public function logoutAction()
     {
+    	$sm = $this->getServiceLocator();
+    	
     	$fsUser = new FucmsSessionUser();
-    	$fsAuth = new FucmsSessionAuth();
+    	$fsAuth = new FucmsSessionAuth($sm);
     	
     	$fsAuth->logout($fsUser);
     }
