@@ -111,7 +111,7 @@ class Website extends AbstractDocument
 			
 			$domainDoc = new \Application\Document\Domain();
 			$domainDoc->exchangeArray(array(
-				'domainName' => $this->uniqueSubdomain.'.web.fucms.com',
+				'domainName' => $this->uniqueSubdomain.'.fucmsweb.com',
 				'isDefault' => true
 			));
 			$this->addDomain($domainDoc);

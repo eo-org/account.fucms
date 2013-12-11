@@ -33,7 +33,6 @@ return array(
             'error/index'				=> __DIR__ . '/../view/error/index.phtml',
         	'layout/error'				=> __DIR__ . '/../view/layout/error.phtml',
         	'layout/layout'				=> __DIR__ . '/../view/layout/layout.phtml',
-        	'layout/admin'				=> __DIR__ . '/../view/layout/layout-admin.phtml',
         	'application/index/index'	=> __DIR__ . '/../view/application/index/index.phtml',
         ),
     	'strategies' => array(

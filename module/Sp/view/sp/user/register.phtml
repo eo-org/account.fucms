@@ -1,0 +1,41 @@
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('method', 'post');
+$form->setAttribute('class', 'register-form');
+?>
+
+<?php if(!is_null($this->errorMsg)) {?>
+<div class='error-msg'>
+	<?php echo $this->errorMsg ?>
+</div>
+<?php }?>
+<div class='register-page'>
+	<h1 class="title">设置账户登陆信息</h1>
+	<br clear='both' />
+	<?php echo $this->form()->openTag($form); ?>
+		<div class='element-row subdomain'>
+			<div class='register-input'><?php echo $this->formRow($form->get('subdomainName'))?></div>
+			<br clear='both' />
+			<div class='desc'>
+				注册成功后，您的免费网址是 : <span class='website'><span id='js-subdomain-name'>sudomain</span>.fucmsweb.com</span>
+			</div>
+		</div>
+		<div class='element-row'>
+			<div class='register-input'><?php echo $this->formRow($form->get('loginName'))?></div>
+		</div>
+		<div class='element-row'>
+			<div class='register-input'><?php echo $this->formRow($form->get('password'))?></div>
+		</div>
+		<div class='element-row'>
+			<div class='register-input'><?php echo $this->formRow($form->get('password_2'))?></div>
+		</div>
+		<div class='element-row'>
+			<?php echo $this->formRow($form->get('register-button'))?>
+		</div>
+	<?php echo $this->form()->closeTag(); ?>
+	<div class="login-block">已有账号 ,<a class='landed' href='/sp/login'>直接登录 >> </a></div>
+</div>
+
+<script type="text/javascript" src="http://lib.eo.test/fucms.account/script/jquery.validate.min.js"></script>
+<script type="text/javascript" src="http://lib.eo.test/fucms.account/script/register.js"></script>
