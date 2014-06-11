@@ -39,6 +39,11 @@ return array(
     		'ViewJsonStrategy'
     	),
     ),
+	'view_helpers' => array(
+		'invokables' => array(
+			'path'					=> 'Application\View\Helper\Path',
+		),
+	),
 	'service_manager' => array(
 		'factories' => array('ConfigObject\EnvironmentConfig' => function($serviceManager) {
 			$siteConfig = new Application\EnvConfig(include 'config/env.config.php');
