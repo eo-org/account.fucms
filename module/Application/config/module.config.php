@@ -2,7 +2,8 @@
 return array(
 	'controllers' => array(
         'invokables' => array(
-            'Application\IndexController' => 'Application\Controller\IndexController',
+            'app'			=> 'Application\Controller\IndexController',
+        	'website'		=> 'Rest\Controller\WebsiteController'
         ),
     ),
     'router' => array(
@@ -12,14 +13,53 @@ return array(
                 'options' => array(
                     'route'    => '/',
                     'defaults' => array(
-                        'controller'    => 'Application\IndexController',
+                        'controller'    => 'app',
                         'action'        => 'index',
                     ),
                 ),
             	'may_terminate' => true,
             	'child_routes' => array(
+            		'actionroutes' => array(
+            			'type' => 'segment',
+            			'options' => array(
+            				'route' => '[:controller][/:action]',
+            				'constraints' => array(
+            					'controller' => '[a-z-]*',
+            					'action' => '[a-z-]*'
+            				),
+            				'defaults' => array(
+            					'controller' => 'app',
+            					'action' => 'index'
+            				)
+            			),
+            			'may_terminate' => true,
+            			'child_routes' => array(
+            				'wildcard' => array(
+            					'type' => 'wildcard'
+            				)
+            			)
+            		)
             	)
             ),
+        	'rs' => array(
+        		'type'    => 'literal',
+        		'options' => array(
+        			'route'    => '/rs'
+        		),
+        		'may_terminate' => true,
+        		'child_routes' => array (
+					'restroutes' => array (
+						'type' => 'segment',
+						'options' => array (
+							'route' => '[/:controller].json[/:id]',
+							'constraints' => array (
+								'controller' => '[a-z-]*',
+								'id' => '[A-Za-z0-9-_]*'
+							)
+						)
+					)
+				)
+            )
         ),
     ),
     'view_manager' => array(
@@ -34,6 +74,9 @@ return array(
         	'layout/error'				=> __DIR__ . '/../view/layout/error.phtml',
         	'layout/layout'				=> __DIR__ . '/../view/layout/layout.phtml',
         	'application/index/index'	=> __DIR__ . '/../view/application/index/index.phtml',
+        	'application/index/create'	=> __DIR__ . '/../view/application/index/create.phtml',
+        	'application/index/edit'	=> __DIR__ . '/../view/application/index/edit.phtml',
+        	'application/index/server-status' => __DIR__ . '/../view/application/index/server-status.phtml'
         ),
     	'strategies' => array(
     		'ViewJsonStrategy'
@@ -41,13 +84,7 @@ return array(
     ),
 	'view_helpers' => array(
 		'invokables' => array(
-			'path'					=> 'Application\View\Helper\Path',
-		),
-	),
-	'service_manager' => array(
-		'factories' => array('ConfigObject\EnvironmentConfig' => function($serviceManager) {
-			$siteConfig = new Application\EnvConfig(include 'config/env.config.php');
-			return $siteConfig;
-		})
-	),
+			'path' => 'Application\View\Helper\Path',
+		)
+	)
 );

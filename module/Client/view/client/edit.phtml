@@ -1,0 +1,124 @@
+<div class="container-fluid">
+	<div class='row'>
+		<div class='col-sm-12'><h1><?php echo $this->companyName?></h1></div>
+	</div>
+	<div class='row'>
+		<div class='col-md-9'><div fc-payment ng-show='disp.currentPayment' data-client-id='<?php echo $this->clientId?>' class='panel panel-primary'>
+			<div class='panel-heading'>
+				Payment Records
+			</div>
+			<div class='panel-body'>
+				<div class='col-sm-3'>
+					<div class='list-group'>
+						<a href='#' class='list-group-item' ng-repeat='p in paymentList' ng-class='' ng-click=''>
+							{{::p.purpose}} - {{::p.totalAmount}}<br />
+							<small>{{::p.created.date}}</small>
+						</a>
+					</div>
+					<button ng-click='onAddNewPayment()' ng-disabled="disp.addNewPayment" type='button' class='btn btn-primary'>Create New Payment</button>
+				</div>
+				<div class='col-sm-9'>
+					<h2>Total: {{::currentPayment.totalAmount}}</h2>
+					<strong>Settled: {{currentPayment.amountSettled}}</strong><br />
+					<strong>Overdue: {{currentPayment.amountOverdue}}</strong><br />
+					Uncollectible: {{currentPayment.amountUncollectible}}<br />
+					<br />
+				
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<td>Label</td>
+								<td>Amount</td>
+								<td>Created</td>
+								<td>Operator</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat='s in currentPayment.settlements'>
+								<td>{{s.label}}</td>
+								<td>{{s.amount}}</td>
+								<td>{{s.created.date}}</td>
+								<td>{{s.operator}}</td>
+							</tr>
+						</tbody>
+						<tfoot><tr><td colspan='4' fc-settlement-creator>
+							<button ng-hide='disp.settlement' ng-click='onSettlementNew()' type='button' class='btn btn-primary'>new settlement</button>
+							
+							<div ng-show='disp.settlement'>
+								<form name='settlementForm' role='form' class='form-horizontal' novalidate>
+									<div class="form-group">
+										<label for="label" class="control-label col-sm-2">Label</label>
+										<div class="col-sm-10">
+											<input id="label" name="label" class="form-control" placeholder="label" ng-model="postData.label" type="text" required>
+											<p ng-show='settlementForm.label.$error.required' class='help-block'>label is required!</p>									
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="amount" class="control-label col-sm-2">Amount</label>
+										<div class="col-sm-10">
+											<input id="amount" name="amount" class="form-control" placeholder="amount" ng-model="postData.amount" type="number" step="10" ng-minlength="2" required>
+											<p ng-show='settlementForm.amount.$error.required' class='help-block'>amount is required!</p>									
+										</div>
+									</div>
+								</form>
+								<button ng-click='onSettlementFormConfirm()' type='button' class='btn btn-success'>confirm</button>
+							</div>
+						</td></tr></tfoot>
+					</table>
+				</div>
+			</div>
+		</div><div ng-hide='disp.currentPayment' class="jumbotron">
+			<p>We don't have any payment related to this client, click the Create New Payment button to create payment recored!</p>
+			<button ng-click='onAddNewPayment()' ng-disabled="disp.addNewPayment" type='button' class='btn btn-primary btn-lg'>Create New Payment</button>
+		</div><div ng-show='disp.addNewPayment'>
+			<form name='paymentForm' role='form' class='form-horizontal' novalidate>
+				<div class="form-group">
+					<label for="purpose" class="control-label col-sm-2">Payment Purpose</label>
+					<div class="col-sm-10">
+						<input id="purpose" name="purpose" class="form-control" placeholder="Payment Purpose" ng-model="paymentData.purpose" type="text" required>
+						<p ng-show='paymentForm.purpose.$error.required' class='help-block'>purpose is required!</p>									
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="total-amount" class="control-label col-sm-2">Total Amount</label>
+					<div class="col-sm-10">
+						<input id="total-amount" name="totalAmount" class="form-control" placeholder="Total Amount" ng-model="paymentData.totalAmount" type="number" step="10" ng-minlength="2" required>
+						<p ng-show='settlementForm.totalAmount.$error.required' class='help-block'>total amount is required!</p>									
+					</div>
+				</div>
+			</form>
+			<button ng-click='onPaymentFormConfirm()' type='button' class='btn btn-success'>confirm</button>
+		</div></div>
+		
+		<div class='col-md-3'><div fc-contact-list data-client-id='<?php echo $this->clientId?>' class='panel panel-primary'>
+			<div class='panel-heading'>Contacts</div>
+			<div class='panel-body'>
+				<div fc-contact ng-repeat='contact in contactList'>
+					{{contact.name}}:{{contact.mobile}}
+				</div>
+				<button class='btn-link' ng-click='onAddNewContact()' ng-hide='disp.addNewContact'>add a contact..</button>
+				<div ng-show='disp.addNewContact'>
+					<form name='contactForm' role='form' novalidate>
+						<div class="form-group">
+							<label for="name" class="control-label">Name</label>
+							<input id="name" name="name" class="form-control" placeholder="name" ng-model="contactData.name" type="text" required>
+							<p ng-show='contactForm.name.$error.required' class='help-block'>name is required!</p>
+						</div>
+						<div class="form-group">
+							<label for="mobile" class="control-label">Mobile</label>
+							<input id="mobile" name="mobile" class="form-control" placeholder="mobile" ng-model="contactData.mobile" type="text" ng-minlength="2" required>
+							<p ng-show='contactForm.mobile.$error.required' class='help-block'>mobile is required!</p>
+						</div>
+					</form>
+					<button ng-click='onContactFormConfirm()' type='button' class='btn btn-success'>confirm</button>
+				</div>
+			</div>
+		</div></div>
+	</div>
+</div>
+
+<script src='<?php echo $this->path('account')?>/client/ng/payment.js'></script>
+<script src='<?php echo $this->path('account')?>/client/ng/contact.js'></script>
+<script>
+	var adminApp = angular.module('adminApp', ['fcPaymentModule', 'fcContactModule']);
+</script>

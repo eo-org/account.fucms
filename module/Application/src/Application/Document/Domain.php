@@ -1,7 +1,6 @@
 <?php
 namespace Application\Document;
 
-use Core\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**

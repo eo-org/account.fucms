@@ -9,7 +9,6 @@ class Path extends AbstractHelper implements ServiceLocatorAwareInterface
 {
 	public $helperPluginManager;
 	public $path;
-	
 	public function setServiceLocator(ServiceLocatorInterface $serviceManager)
 	{
 		$this->helperPluginManager = $serviceManager;
@@ -17,14 +16,12 @@ class Path extends AbstractHelper implements ServiceLocatorAwareInterface
 		$config = $serviceManager->get('Config');
 		$this->path = $config['env']['path'];
 	}
-	
 	public function getServiceLocator()
 	{
 		return $this->helperPluginManager;
 	}
-	
-    public function __invoke($pathKey)
-    {
+	public function __invoke($pathKey)
+	{
 		return $this->path[$pathKey];
-    }
+	}
 }

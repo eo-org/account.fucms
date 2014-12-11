@@ -4,6 +4,7 @@ return array(
     	'DoctrineMongo',
     	'Sp',
 		'Application',
+    	'Client'
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

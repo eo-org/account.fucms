@@ -1,0 +1,14 @@
+<div>
+{{data.label}}
+</div>
+<div>
+startdate: {{data.created}}
+</div>
+<div>
+enddate:{{data.expireDate}}
+</div>
+
+<script src='<?php echo $this->path('account')?>/app/ng/website.js'></script>
+<script>
+	var adminApp = angular.module('adminApp', []);
+</script>

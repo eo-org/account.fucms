@@ -1,7 +1,7 @@
 <?php
 namespace Application\Document;
 
-use Core\AbstractDocument;
+use Application\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /** 
@@ -21,10 +21,10 @@ class Website extends AbstractDocument
 	protected $globalSiteId;
 	
 	/** @ODM\Field(type="string") */
-	protected $userId;
+	protected $uniqueSubdomain;
 	
 	/** @ODM\Field(type="string") */
-	protected $uniqueSubdomain;
+	protected $label;
 	
 	/** @ODM\EmbedMany(targetDocument="Application\Document\Domain")  */
 	protected $domains = array();
@@ -49,9 +49,12 @@ class Website extends AbstractDocument
 	
 	public function exchangeArray($data)
 	{
-		$this->userId = $data['userId'];
-		$this->uniqueSubdomain = $data['uniqueSubdomain'];
-		
+		if(isset($data['uniqueSubdomain'])) {
+			$this->uniqueSubdomain = $data['uniqueSubdomain'];
+		}
+		if(isset($data['label'])) {
+			$this->label = $data['label'];
+		}
 		if(is_null($this->created)) {
 			$this->created = new \DateTime();
 			$expireDate = new \DateTime();
@@ -63,7 +66,6 @@ class Website extends AbstractDocument
 	public function getArrayCopy()
 	{
 		return array(
-			'userId' => $this->userId,
 			'uniqueSubdomain' => $this->uniqueSubdomain,
 			'created' => $this->created,
 			'expireDate' => $this->expireDate,
@@ -98,7 +100,7 @@ class Website extends AbstractDocument
 	/** @ODM\PrePersist */
 	public function prePersist()
 	{
-		if($this->isNew()) {
+		if($this->id == null) {
 			$dm = self::getObjectManager();
 			
 			$counterDoc = $dm->createQueryBuilder('Application\Document\Counter')

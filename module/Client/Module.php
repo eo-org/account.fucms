@@ -1,5 +1,5 @@
 <?php
-namespace Application;
+namespace Client;
 
 use Zend\EventManager\StaticEventManager;
 use Zend\Mvc\MvcEvent;
@@ -22,7 +22,7 @@ class Module
             'Zend\Loader\StandardAutoloader' => array(
 				'namespaces' => array(
 					__NAMESPACE__	=> __DIR__ . '/src/' . __NAMESPACE__,
-					'Rest' => __DIR__ . '/src/Rest'
+					'ClientRest' => __DIR__ . '/src/ClientRest'
 				)
             ),
         );

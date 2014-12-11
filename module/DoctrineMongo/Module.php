@@ -15,30 +15,33 @@ class Module implements BootstrapListenerInterface
 	{
 		$application = $event->getTarget();
 		$sm = $application->getServiceManager();
-		$dbName = 'account_fucms';
+		
+		$fileConfig = $sm->get('Config');
+		$env = $fileConfig['env'];
 		
 		AnnotationDriver::registerAnnotationClasses();
 		$config = new Configuration();
-		$config->setDefaultDB($dbName);
+		$config->setDefaultDB('account_fucms');
 		
-		$config->setProxyDir(BASE_PATH . '/account.fucms/doctrineCache');
+		$config->setProxyDir(__DIR__ . '/../../doctrineCache');
 		$config->setProxyNamespace('DoctrineMongoProxy');
-		$config->setHydratorDir(BASE_PATH . '/account.fucms/doctrineCache');
+		$config->setHydratorDir(__DIR__ . '/../../doctrineCache');
 		$config->setHydratorNamespace('DoctrineMongoHydrator');
-		$config->setMetadataDriverImpl(AnnotationDriver::create(BASE_PATH . '/account.fucms/doctrineCache/class'));
+		$config->setMetadataDriverImpl(AnnotationDriver::create(__DIR__ . '/../../doctrineCache/class'));
 		
-		$config->setAutoGenerateHydratorClasses(true);
-		$config->setAutoGenerateProxyClasses(true);
-		
+		if($env['usage']['server'] == 'production') {
+			$config->setAutoGenerateHydratorClasses(false);
+			$config->setAutoGenerateProxyClasses(false);
+		}
 		$connection = new Connection('127.0.0.1', array(
 			'username' => 'craftgavin',
 			'password' => 'whothirstformagic?',
 			'db' => 'admin'
 		));
 		$connection->initialize();
+		
 		$dm = DocumentManager::create($connection, $config);
 		PersistentObject::setObjectManager($dm);
-		
 		$sm->setService('DocumentManager', $dm);
 	}
 }

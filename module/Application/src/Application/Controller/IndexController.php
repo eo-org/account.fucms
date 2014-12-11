@@ -9,15 +9,26 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
     	$sm = $this->getServiceLocator();
+    	$user = $sm->get('Sp\User');
+    	
     	$config = $sm->get('Config');
     	$dm = $sm->get('DocumentManager');
     	
-    	$user = new User($dm);
-    	$websiteDocs = $user->getWebsiteDocs();
+ //   	$qb = $dm->createQueryBuilder('Application\Document\Website')->;
+    }
+    
+    public function createAction()
+    {
     	
-    	return array(
-    		'websiteDocs' => $websiteDocs,
-    		'domainClient' => $config['env']['domain']['client']
-    	);
+    }
+    
+    public function editAction()
+    {
+    	
+    }
+    
+    public function serverStatusAction()
+    {
+    	
     }
 }

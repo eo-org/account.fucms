@@ -1,30 +1,45 @@
-<?php
-	$form = $this->form;
-	$form->prepare();
-	$form->setAttribute('method', 'post');
-	$form->setAttribute('class', 'login-form');
-?>
-<?php if(!is_null($this->errorMsg)) {?>
-<div class='error-msg'>
-	<?php echo $this->errorMsg ?>
-</div>
-<?php }?>
-<div class='login-page'>
-	<div class="login-logo"></div>
-	<?php echo $this->form()->openTag($form); ?>
-		<div class='element-row'>
-			<div class='login-input login-name'><?php echo $this->formRow($form->get('loginName'))?></div>
-		</div>
-		<div class='element-row'>
-			<div class='login-input password'><?php echo $this->formRow($form->get('password'))?></div>
-		</div>
-		<div class='element-row'>
-			<?php echo $this->formRow($form->get('login-button'))?>
-			<br />
-			<a class='links' href='/sp/register'>注册新用户</a>
-			<a class='links' href='/sp/register'>找回密码</a>
-		</div>
-	<?php echo $this->form()->closeTag(); ?>
+<div class='login-form-div'>
+	<div class="login-form">
+		<h3 class="title"><?php echo $this->webSiteName?></h3>
+		<form action='' method='post'>
+			<dl>
+				<dt>
+					<i class="fi-torso" style="font-size: 25px; width: 20px;"></i>
+				</dt>
+				<dd>
+					<input id="login" onFocus="borderColor(this,'#008cba')"
+						onBlur="borderColor(this,'#eee')" type='text' name='loginName'
+						value='' />
+				</dd>
+			</dl>
+			<div id="error" class="error-message"><?php echo $this->info?></div>
+			<dl>
+				<dt>
+					<i class="fi-key" style="font-size: 25px; width: 25px;"></i>
+				</dt>
+				<dd>
+					<input onFocus="borderColor(this,'#008cba')"
+						onBlur="borderColor(this,'#eee')" type='password' name='password'
+						value='' />
+				</dd>
+			</dl>
+			<input class="postbtn" type='submit' name='submit' value='进入管理' />
+		</form>
+	</div>
 </div>
 
-<script type="text/javascript" src="<?php echo $this->path('compact')?>/acc/_sp.js"></script>
+<script>
+	function borderColor(e,color){
+		e.parentNode.parentNode.style.borderColor=color;
+	}
+	var info="<?php echo $this->info?>";
+	if(info){
+		var obj=document.getElementById("error"),
+			login=document.getElementById("login");
+		login.focus();
+		setTimeout(function (){
+			obj.style.display="none";
+			},4000);
+	}
+
+</script>
