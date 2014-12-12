@@ -1,7 +1,7 @@
 <div class="container-fluid"><div class="row">
-	<div class="col-md-12" fc-data-list data-url="<?php echo $this->url('rs/restroutes', array('controller' => 'website'), true)?>" >
+	<div class="col-md-12" fc-data-list data-url="<?php echo $this->url('admrs/restroutes', array('controller' => 'rs-website'), true)?>" >
 		<div class='page-actions'>
-			<a class='btn btn-default' href='/app/create'><i class='fa fa-plus'></i>Create New</a>
+			<a class='btn btn-default' href='/admin/website/create'><i class='fa fa-plus'></i>Create New</a>
 		</div>
 		<div ng-controller = "searchController" ng-init = "init('articleQueryObj')" class="dataSerach row">
 			<form class="form-horizontal" role="form">
@@ -36,7 +36,7 @@
 					<td>{{::doc.globalSiteId}}</td>
 					<td>{{::doc.active | statusText}}</td>
 					<td>
-						<a href='/client/edit/website-id/{{::doc._id.$id}}'>client</a>
+						<a href='/admin/client/edit/website-id/{{::doc._id.$id}}'>client</a>
 					</td>
 				</tr>
 			</tbody>

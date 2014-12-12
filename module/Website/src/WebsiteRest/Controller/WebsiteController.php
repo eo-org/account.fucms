@@ -1,5 +1,5 @@
 <?php
-namespace Rest\Controller;
+namespace WebsiteRest\Controller;
 
 use MongoRegex;
 use Zend\Mvc\Controller\AbstractRestfulController;

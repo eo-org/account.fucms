@@ -1,10 +1,10 @@
 <?php
-namespace Application\Controller;
+namespace Website\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Session\User;
 
-class IndexController extends AbstractActionController
+class WebsiteController extends AbstractActionController
 {
     public function indexAction()
     {

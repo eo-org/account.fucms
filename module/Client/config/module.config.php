@@ -3,8 +3,8 @@ return array(
 	'controllers' => array(
         'invokables' => array(
         	'client'		=> 'Client\Controller\ClientController',
-        	'rest-payment'	=> 'ClientRest\Controller\PaymentController',
-        	'rest-contact'	=> 'ClientRest\Controller\ContactController'
+        	'rs-payment'	=> 'ClientRest\Controller\PaymentController',
+        	'rs-contact'	=> 'ClientRest\Controller\ContactController'
         ),
     ),
     'view_manager' => array(

@@ -22,7 +22,7 @@ class Module
             'Zend\Loader\StandardAutoloader' => array(
 				'namespaces' => array(
 					__NAMESPACE__	=> __DIR__ . '/src/' . __NAMESPACE__,
-					'WebsiteRest' => __DIR__ . '/src/ClientRest'
+					'WebsiteRest' => __DIR__ . '/src/WebsiteRest'
 				)
             ),
         );

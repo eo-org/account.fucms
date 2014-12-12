@@ -18,10 +18,43 @@ return array(
                 ),
             	'may_terminate' => true
             ),
-        	'rs' => array(
+        	'admin' => array(
+				'type' => 'literal',
+        		'options'=> array(
+        			'route'	=> '/admin',
+        			'defaults' => array(
+        				'controller' => 'app',
+        				'action' => 'index'
+        			)
+        		),
+        		'may_terminate' => true,
+        		'child_routes' => array(
+        			'actionroutes' => array(
+        				'type' => 'segment',
+        				'options' => array(
+        					'route' => '[/:controller][/:action]',
+        					'constraints' => array(
+        						'controller' => '[a-z-]*',
+        						'action' => '[a-z-]*'
+        					),
+        					'defaults' => array(
+        						'controller' => 'app',
+        						'action' => 'index'
+        					)
+        				),
+        				'may_terminate' => true,
+        				'child_routes' => array(
+        					'wildcard' => array(
+        						'type' => 'wildcard'
+        					)
+        				)
+        			)
+        		)
+			),
+        	'admrs' => array(
         		'type'    => 'literal',
         		'options' => array(
-        			'route'    => '/rs'
+        			'route'    => '/admrs'
         		),
         		'may_terminate' => true,
         		'child_routes' => array (
