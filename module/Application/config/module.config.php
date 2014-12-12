@@ -2,8 +2,7 @@
 return array(
 	'controllers' => array(
         'invokables' => array(
-            'app'			=> 'Application\Controller\IndexController',
-        	'website'		=> 'Rest\Controller\WebsiteController'
+            'app'			=> 'Application\Controller\IndexController'
         ),
     ),
     'router' => array(
@@ -17,29 +16,7 @@ return array(
                         'action'        => 'index',
                     ),
                 ),
-            	'may_terminate' => true,
-            	'child_routes' => array(
-            		'actionroutes' => array(
-            			'type' => 'segment',
-            			'options' => array(
-            				'route' => '[:controller][/:action]',
-            				'constraints' => array(
-            					'controller' => '[a-z-]*',
-            					'action' => '[a-z-]*'
-            				),
-            				'defaults' => array(
-            					'controller' => 'app',
-            					'action' => 'index'
-            				)
-            			),
-            			'may_terminate' => true,
-            			'child_routes' => array(
-            				'wildcard' => array(
-            					'type' => 'wildcard'
-            				)
-            			)
-            		)
-            	)
+            	'may_terminate' => true
             ),
         	'rs' => array(
         		'type'    => 'literal',
@@ -74,9 +51,6 @@ return array(
         	'layout/error'				=> __DIR__ . '/../view/layout/error.phtml',
         	'layout/layout'				=> __DIR__ . '/../view/layout/layout.phtml',
         	'application/index/index'	=> __DIR__ . '/../view/application/index/index.phtml',
-        	'application/index/create'	=> __DIR__ . '/../view/application/index/create.phtml',
-        	'application/index/edit'	=> __DIR__ . '/../view/application/index/edit.phtml',
-        	'application/index/server-status' => __DIR__ . '/../view/application/index/server-status.phtml'
         ),
     	'strategies' => array(
     		'ViewJsonStrategy'

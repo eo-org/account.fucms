@@ -1,10 +1,11 @@
 <?php
 return array(
     'modules' => array(
-    	'DoctrineMongo',
-    	'Sp',
 		'Application',
-    	'Client'
+    	'Client',
+    	'Website',
+    	'DoctrineMongo',
+    	'Sp'
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
