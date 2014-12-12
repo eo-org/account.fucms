@@ -13,8 +13,6 @@ class WebsiteController extends AbstractActionController
     	
     	$config = $sm->get('Config');
     	$dm = $sm->get('DocumentManager');
-    	
- //   	$qb = $dm->createQueryBuilder('Application\Document\Website')->;
     }
     
     public function createAction()

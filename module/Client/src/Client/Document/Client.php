@@ -25,12 +25,22 @@ class Client extends AbstractDocument
 		if(isset($data['companyName'])) {
 			$this->companyName = $data['companyName'];
 		}
+		if(isset($data['websiteId'])) {
+			$this->addWebsiteId($data['websiteId']);
+		}
 	}
 	
 	public function getArrayCopy()
 	{
 		return array(
-			'companyName' => $this->companyName,
+			'companyName' => $this->companyName
 		);
+	}
+	
+	public function addWebsiteId($websiteId)
+	{
+		if(is_string($websiteId)) {
+			$this->websiteIds[] = $websiteId;
+		}
 	}
 }
