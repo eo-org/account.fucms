@@ -30,7 +30,7 @@
 			</thead>
 			<tbody class='datalist-body  text-center'>
 				<tr ng-repeat="doc in dataArr.data">
-					<td class="text-left"><a href='/app/edit/{{doc._id.$id}}'>{{::doc.label}}</a></td>
+					<td class="text-left"><a href='/admin/website/edit/id/{{doc._id.$id}}'>{{::doc.label}}</a></td>
 					<td>{{::doc.created | dateYmd}}</td>
 					<td>{{::doc.expireDate | dateYmd}}</td>
 					<td>{{::doc.globalSiteId}}</td>

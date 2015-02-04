@@ -22,7 +22,11 @@ class WebsiteController extends AbstractActionController
     
     public function editAction()
     {
+    	$id = $this->params()->fromRoute('id');
     	
+    	return array(
+    		'id' => $id
+    	);
     }
     
     public function serverStatusAction()

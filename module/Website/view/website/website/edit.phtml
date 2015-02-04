@@ -1,14 +1,30 @@
-<div>
-{{data.label}}
-</div>
-<div>
-startdate: {{data.created}}
-</div>
-<div>
-enddate:{{data.expireDate}}
-</div>
+<div class="container-fluid"><div class="row">
+	<div fc-website-editor data-id='<?php echo $this->id?>' class="col-md-12">
+		<div>
+		{{formData.label}}
+		</div>
+		<div>
+		startdate: {{::formData.created.date}}
+		</div>
+		<div>
+		enddate:{{::formData.expireDate.date}}
+		</div>
+		
+		
+		<form name="websiteForm" class="form-horizontal" novalidate>
+			<div class="form-group">
+				<label for="label" class="control-label col-md-2">Label:</label>
+				<div class="col-md-10">
+					<input id="label" name="label" class="form-control" placeholder="Website Label" ng-model="formData.label" type="text" />
+				</div>
+			</div>
+			
+			<button ng-click='onConfirm()' class='btn btn-primary'>Confirm</button>
+		</form>
+	</div>
+</div></div>
 
-<script src='<?php echo $this->path('account')?>/app/ng/website.js'></script>
+<script src='<?php echo $this->path('account')?>/website/ng/website.js'></script>
 <script>
-	var adminApp = angular.module('adminApp', []);
+	var adminApp = angular.module('adminApp', ['fcWebsiteModule']);
 </script>

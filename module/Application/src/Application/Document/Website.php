@@ -55,17 +55,13 @@ class Website extends AbstractDocument
 		if(isset($data['label'])) {
 			$this->label = $data['label'];
 		}
-		if(is_null($this->created)) {
-			$this->created = new \DateTime();
-			$expireDate = new \DateTime();
-			$expireDate->modify('+1 month');
-			$this->expireDate = $expireDate;
-		}
 	}
 	
 	public function getArrayCopy()
 	{
 		return array(
+			'globalSiteId' => $this->globalSiteId,
+			'label' => $this->label,
 			'uniqueSubdomain' => $this->uniqueSubdomain,
 			'created' => $this->created,
 			'expireDate' => $this->expireDate,
