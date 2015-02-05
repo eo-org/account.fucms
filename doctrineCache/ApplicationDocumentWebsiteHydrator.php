@@ -76,6 +76,14 @@ class ApplicationDocumentWebsiteHydrator implements HydratorInterface
             $hydratedData['label'] = $return;
         }
 
+        /** @Field(type="string") */
+        if (isset($data['pyInitial'])) {
+            $value = $data['pyInitial'];
+            $return = (string) $value;
+            $this->class->reflFields['pyInitial']->setValue($document, $return);
+            $hydratedData['pyInitial'] = $return;
+        }
+
         /** @Many */
         $mongoData = isset($data['domains']) ? $data['domains'] : null;
         $return = new \Doctrine\ODM\MongoDB\PersistentCollection(new \Doctrine\Common\Collections\ArrayCollection(), $this->dm, $this->unitOfWork, '$');

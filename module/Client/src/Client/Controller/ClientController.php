@@ -1,9 +1,10 @@
 <?php
 namespace Client\Controller;
 
+use Core\Zh;
 use Zend\Mvc\Controller\AbstractActionController;
-use Application\Session\User;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 class ClientController extends AbstractActionController
 {
@@ -18,6 +19,45 @@ class ClientController extends AbstractActionController
 		
 	}
 
+	public function addInitAction()
+	{
+		$dm = $this->getServiceLocator()->get('DocumentManager');
+		$zh = new Zh(); 
+		$clientDocs = $dm->getRepository('Client\Document\Client')->findAll();
+		foreach($clientDocs as $cd) {
+			$name = $cd->getCompanyName();
+			$pyInit = $zh->getInitials($name);
+			$pyInit = strtolower($pyInit);
+			
+			
+			$gap = array(" ","　","\t","\n","\r");
+			$rep = array("","","","","");
+			$pyInit = str_replace($gap, $rep, $pyInit);
+			
+			$cd->setPyInitial($pyInit);
+			$dm->persist($cd);
+		}
+		
+		
+		$websiteDocs = $dm->getRepository('Application\Document\Website')->findAll();
+		foreach($websiteDocs as $wd) {
+			$name = $wd->getLabel();
+			$pyInit = $zh->getInitials($name);
+			$pyInit = strtolower($pyInit);
+				
+				
+			$gap = array(" ","　","\t","\n","\r");
+			$rep = array("","","","","");
+			$pyInit = str_replace($gap, $rep, $pyInit);
+				
+			$wd->setPyInitial($pyInit);
+			$dm->persist($wd);
+		}
+		
+		$dm->flush();
+		return new JsonModel(array());
+	}
+	
 	public function editAction()
 	{
 		$websiteId = $this->params()->fromRoute('website-id');
@@ -38,5 +78,4 @@ class ClientController extends AbstractActionController
 		}
 		return $viewModel;
 	}
-
 }

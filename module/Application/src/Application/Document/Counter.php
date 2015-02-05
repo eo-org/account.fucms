@@ -15,4 +15,11 @@ class Counter extends AbstractDocument
 	
 	/** @ODM\Field(type="int")  */
 	protected $val;
+	
+	public function getArrayCopy()
+	{
+		return array(
+			'val' => $this->val
+		);
+	}
 }

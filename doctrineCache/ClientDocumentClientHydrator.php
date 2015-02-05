@@ -43,6 +43,14 @@ class ClientDocumentClientHydrator implements HydratorInterface
             $hydratedData['companyName'] = $return;
         }
 
+        /** @Field(type="string") */
+        if (isset($data['pyInitial'])) {
+            $value = $data['pyInitial'];
+            $return = (string) $value;
+            $this->class->reflFields['pyInitial']->setValue($document, $return);
+            $hydratedData['pyInitial'] = $return;
+        }
+
         /** @Field(type="hash") */
         if (isset($data['websiteIds'])) {
             $value = $data['websiteIds'];

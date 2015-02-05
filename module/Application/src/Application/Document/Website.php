@@ -26,6 +26,9 @@ class Website extends AbstractDocument
 	/** @ODM\Field(type="string") */
 	protected $label;
 	
+	/** @ODM\Field(type="string") */
+	protected $pyInitial = "";
+	
 	/** @ODM\EmbedMany(targetDocument="Application\Document\Domain")  */
 	protected $domains = array();
 	
@@ -54,6 +57,10 @@ class Website extends AbstractDocument
 		}
 		if(isset($data['label'])) {
 			$this->label = $data['label'];
+		}
+		if(empty($this->id)) {
+			$this->created = new \DateTime();
+			$this->expireDate = new \DateTime();
 		}
 	}
 	
@@ -96,34 +103,31 @@ class Website extends AbstractDocument
 	/** @ODM\PrePersist */
 	public function prePersist()
 	{
-		if($this->id == null) {
-			$dm = self::getObjectManager();
-			
-			$counterDoc = $dm->createQueryBuilder('Application\Document\Counter')
-				->findAndUpdate()
-				->field('name')->equals('website')
-				->field('val')->inc(1)
-				->getQuery()
-				->execute();
-			$this->globalSiteId = $counterDoc->getVal();
-			
-			$domainDoc = new \Application\Document\Domain();
-			$domainDoc->exchangeArray(array(
-				'domainName' => $this->uniqueSubdomain.'.fucmsweb.com',
-				'isDefault' => true
-			));
-			$this->addDomain($domainDoc);
-			
-			$serverDoc = $dm->createQueryBuilder('Application\Document\Server')
-				->findAndUpdate()
-				->where("function() {return this.activeWebsiteCount < this.activeWebsiteLimit}")
-				->limit(1)
-				->sort('activeWebsiteCount')
-				->field('activeWebsiteCount')->inc(1)
-				->getQuery()
-				->execute();
-			
-			$this->server = $serverDoc;
-		}
+		$dm = self::getObjectManager();
+		
+		$counterDoc = $dm->createQueryBuilder('Application\Document\Counter')
+			->findAndUpdate()
+			->field('name')->equals('website')
+			->field('val')->inc(1)
+			->getQuery()
+			->execute();
+		$this->globalSiteId = $counterDoc->getVal();
+		
+		$domainDoc = new \Application\Document\Domain();
+		$domainDoc->exchangeArray(array(
+			'domainName' => $this->uniqueSubdomain.'.fucmsweb.com',
+			'isDefault' => true
+		));
+		$this->addDomain($domainDoc);
+		
+		$serverDoc = $dm->createQueryBuilder('Application\Document\Server')
+			->findAndUpdate()
+			->where("this.activeWebsiteCount < this.activeWebsiteLimit")
+			->limit(1)
+			->sort('activeWebsiteCount', 1)
+			->field('activeWebsiteCount')->inc(1)
+			->getQuery()
+			->execute();
+		$this->server = $serverDoc;
 	}
 }

@@ -31,28 +31,14 @@ class WebsiteController extends AbstractRestfulController
 		$skip = $pageSize * ($currentPage - 1);
 		$dm = $this->getServiceLocator()->get('DocumentManager');
 		$qb = $dm->createQueryBuilder('Application\Document\Website')->select('id', 'active', 'created', 'globalSiteId', 'label', 'expireDate');
-// 		if(empty($status) || $status == "all"){
-// 			$qb->field("status")->notEqual('trash');
-// 		}else if(!empty($status)){
-// 			$qb->field("status")->equals($status);
-// 		}
-// 		if(!empty($filter['groupId']) && $filter['groupId'] != 'all') {
-// 			$qb->field("groupId")->equals($filter['groupId']);
-// 		}
+
 		if(!empty($label)) {
 			$qb->field("label")->equals(new MongoRegex("/" . $label . "/"));
 		}
-// 		if(!empty($author)){
-// 			$qb->field("author.name")->equals(new MongoRegex("/" . $author . "/"));
-// 		}
-		
-// 		$csd = $this->getServiceLocator()->get('Cms\Service\DocumentEvents');
-// 		$csd->triggerEvent('query.pre', $qb);
 		
 		$cursor = $qb->limit($pageSize)->skip($skip)->sort($sIndex, $sOrder)->hydrate(false)->getQuery()->execute();
-		$data = array();//$this->formatData($cursor);
+		$data = array();
 		foreach($cursor as $val) {
-			//echo $val;
 			$data[] = $val;
 		}
 		$dataSize = intval($qb->getQuery()->execute()->count());

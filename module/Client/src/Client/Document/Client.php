@@ -1,6 +1,7 @@
 <?php
 namespace Client\Document;
 
+use Core\Zh;
 use Application\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
@@ -16,6 +17,9 @@ class Client extends AbstractDocument
 	
 	/** @ODM\Field(type="string") */
 	protected $companyName = "";
+	
+	/** @ODM\Field(type="string") */
+	protected $pyInitial = "";
 	
 	/** @ODM\Field(type="hash") */
 	protected $websiteIds = array();
