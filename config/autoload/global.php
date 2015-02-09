@@ -12,7 +12,8 @@ return array(
 		'path' => array(
 			'account' => 'http://lib-media.qiniudn.com/account',
 			'common' => 'http://lib-media.qiniudn.com/common',
-			'compact' => 'http://lib-media.qiniudn.com/compact'
+			'compact' => 'http://lib-media.qiniudn.com/compact',
+			'src' => 'http://lib-media.qiniudn.com/src'
 		),
 	)
 );
