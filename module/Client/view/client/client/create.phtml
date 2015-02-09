@@ -6,7 +6,7 @@
 		<div class="form-group">
 			<label for="companyName" class="control-label col-sm-2">Company Name公司名字:</label>
 			<div class="col-sm-10">
-				<input id="companyName" name="companyName" class="form-control" placeholder="company name" ng-model="clientData.companyName" ng-disabled='disp.bindCompany' type="text" ng-minlength="2" required>
+				<input id="companyName" name="companyName" class="form-control" placeholder="company name" ng-model="formData.companyName" ng-disabled='disp.bindCompany' type="text" ng-minlength="2" required>
 				<p ng-show="clientCreatorForm.companyName.$error.minlength" class="help-block">at least five charaters are required!</p>
 				<p ng-show='clientCreatorForm.companyName.$error.required' class='help-block'>company name is required!</p>									
 			</div>
@@ -18,11 +18,13 @@
 		</div>
 		<div class="form-group" ng-show='disp.bindCompany'>
 			<label for="companySelector" class="control-label col-sm-2">Select Company:</label>
-			<div class="col-sm-3">
-				<select class='form-control'></select>
+			<div class="col-sm-4">
+				<select class='form-control' ng-model='formData.companyId' ng-change='onChangeSelect()' ng-options='item.id as item.label for item in selectOptions'></select>
+				<br />
+				id: {{formData.companyId}}
 			</div>
-			<div class="col-sm-7">
-				<input class="form-control" placeholder="search by company name" ng-model="searchData.companyName" ng-keyup='onSearch()' type="text" ng-minlength="2" required />
+			<div class="col-sm-6">
+				<input class="form-control" placeholder="search by company name" ng-model="searchData" ng-keyup='onSearch()' type="text" />
 			</div>
 		</div>
 		<button type='button' class='btn btn-primary' ng-click="onSave()">Create New Client</button>
@@ -31,5 +33,5 @@
 
 <script src='<?php echo $this->path('account')?>/client/ng/client.js'></script>
 <script>
-	var adminApp = angular.module('adminApp', ['fcClientModule']);
+	appRequiredModules.push('fcClientModule');
 </script>

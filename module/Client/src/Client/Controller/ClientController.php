@@ -60,10 +60,15 @@ class ClientController extends AbstractActionController
 	
 	public function editAction()
 	{
+		$id = $this->params()->fromRoute('id');
 		$websiteId = $this->params()->fromRoute('website-id');
 		$dm = $this->getServiceLocator()->get('DocumentManager');
 		
-		$clientDoc = $dm->getRepository('Client\Document\Client')->findOneByWebsiteIds($websiteId);
+		if(empty($id)) {
+			$clientDoc = $dm->getRepository('Client\Document\Client')->findOneByWebsiteIds($websiteId);
+		} else {
+			$clientDoc = $dm->getRepository('Client\Document\Client')->findOneById($id);
+		}
 		$viewModel = new ViewModel();
 		if(is_null($clientDoc)) {
 			$viewModel->setTemplate('client/client/create');

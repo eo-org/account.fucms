@@ -4,7 +4,7 @@ namespace WebsiteRest\Controller;
 use MongoRegex;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
-use Application\Document\Website;
+use Account\Document\Website;
 
 class WebsiteController extends AbstractRestfulController
 {
@@ -60,9 +60,10 @@ class WebsiteController extends AbstractRestfulController
 	public function get($id)
 	{
 		$dm = $this->getServiceLocator()->get('DocumentManager');
-		$doc = $dm->getRepository('Application\Document\Website')->findOneById($id);
+		$doc = $dm->getRepository('Account\Document\Website')->findOneById($id);
 		
 		$data = $doc->getArrayCopy();
+		$data['domains'] = $doc->getDomains();
 		return new JsonModel($data);
 	}
 	

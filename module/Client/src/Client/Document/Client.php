@@ -28,6 +28,8 @@ class Client extends AbstractDocument
 	{
 		if(isset($data['companyName'])) {
 			$this->companyName = $data['companyName'];
+			$zh = new Zh();
+			$this->pyInitial = $zh->getInitials($data['companyName']);
 		}
 		if(isset($data['websiteId'])) {
 			$this->addWebsiteId($data['websiteId']);

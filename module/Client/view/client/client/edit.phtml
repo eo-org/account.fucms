@@ -120,5 +120,6 @@
 <script src='<?php echo $this->path('account')?>/client/ng/payment.js'></script>
 <script src='<?php echo $this->path('account')?>/client/ng/contact.js'></script>
 <script>
-	var adminApp = angular.module('adminApp', ['fcPaymentModule', 'fcContactModule']);
+	appRequiredModules.push('fcPaymentModule', 'fcContactModule');
+	//var adminApp = angular.module('adminApp', ['fcPaymentModule', 'fcContactModule']);
 </script>

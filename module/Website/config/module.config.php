@@ -2,8 +2,9 @@
 return array(
 	'controllers' => array(
         'invokables' => array(
-        	'website'		=> 'Website\Controller\WebsiteController',
-        	'rs-website'	=> 'WebsiteRest\Controller\WebsiteController',
+        	'website'			=> 'Website\Controller\WebsiteController',
+        	'rs-website'		=> 'WebsiteRest\Controller\WebsiteController',
+        	'rs-domain-name'	=> 'WebsiteRest\Controller\DomainNameController'
         ),
     ),
     'view_manager' => array(

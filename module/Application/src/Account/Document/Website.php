@@ -1,5 +1,5 @@
 <?php
-namespace Application\Document;
+namespace Account\Document;
 
 use Application\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -15,7 +15,7 @@ class Website extends AbstractDocument
 	/** @ODM\Id */
 	protected $id;
 	
-	/** @ODM\ReferenceOne(targetDocument="Application\Document\Server") */
+	/** @ODM\ReferenceOne(targetDocument="Account\Document\Server") */
 	protected $server;
 	
 	/** @ODM\Field(type="int") */
@@ -30,7 +30,7 @@ class Website extends AbstractDocument
 	/** @ODM\Field(type="string") */
 	protected $pyInitial = "";
 	
-	/** @ODM\EmbedMany(targetDocument="Application\Document\Domain")  */
+	/** @ODM\EmbedMany(targetDocument="Account\Document\Domain")  */
 	protected $domains = array();
 	
 	/** @ODM\Field(type="date") */
@@ -53,9 +53,6 @@ class Website extends AbstractDocument
 	
 	public function exchangeArray($data)
 	{
-		if(isset($data['uniqueSubdomain'])) {
-			$this->uniqueSubdomain = $data['uniqueSubdomain'];
-		}
 		if(isset($data['label'])) {
 			$this->label = $data['label'];
 			$zh = new Zh();
@@ -70,6 +67,7 @@ class Website extends AbstractDocument
 	public function getArrayCopy()
 	{
 		return array(
+			'id' => $this->id,
 			'globalSiteId' => $this->globalSiteId,
 			'label' => $this->label,
 			'uniqueSubdomain' => $this->uniqueSubdomain,
@@ -82,10 +80,29 @@ class Website extends AbstractDocument
 		);
 	}
 	
+	public function getDomains()
+	{
+		$domains = array();
+		foreach($this->domains as $domainDoc) {
+			$domainKey = $domainDoc->getId();
+			$domains[$domainKey] = $domainDoc->getArrayCopy();
+		}
+		return $domains;
+	}
+	
 	public function addDomain($domainDocument)
 	{
 		$this->domains[] = $domainDocument;
 		return $this;
+	}
+	
+	public function updateDomain($id, $data)
+	{
+		foreach($this->domains as $key => $domainDoc) {
+			if($domainDoc->getId() == $id) {
+				$domainDoc->exchangeArray($data);
+			}
+		}
 	}
 	
 	public function removeDomain($id)

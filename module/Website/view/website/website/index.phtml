@@ -1,64 +1,63 @@
-<div class="container-fluid"><div class="row">
-	<div class="col-md-12" fc-data-list data-url="<?php echo $this->url('admrs/restroutes', array('controller' => 'rs-website'), true)?>" >
-		<div class='page-actions'>
-			<a class='btn btn-default' href='/admin/website/create'><i class='fa fa-plus'></i>Create New</a>
-		</div>
-		<div ng-controller = "searchController" ng-init = "init('articleQueryObj')" class="dataSerach row">
-			<form class="form-horizontal" role="form">
-				
-			</form>
-		</div>
-		<table class='table table-bordered table-hover table-striped'>
-			<thead class='datalist-head'>
-				<tr class='title-row'>
-					<th class="text-center" fc-filter-sort width='600' data-sindex="label">
-						<strong>站点名</strong>
-						<i ng-if="sortModel.isActive" ng-class="{true:'glyphicon glyphicon-chevron-up', false:'glyphicon glyphicon-chevron-down'}[sortModel.sOrder > 0]"></i>
-					</th>
-					<th class="text-center" fc-filter-sort data-sindex="modified" data-is-active = 'true'>
-						<span>创建时间</span>
-						<i ng-if="sortModel.isActive" ng-class="{true:'glyphicon glyphicon-chevron-up', false:'glyphicon glyphicon-chevron-down'}[sortModel.sOrder > 0]"></i>	
-					</th>
-					<th class="text-center" fc-filter-sort data-sindex="hits">
-						<span>到期时间</span>
-						<i ng-if="sortModel.isActive" ng-class="{true:'glyphicon glyphicon-chevron-up', false:'glyphicon glyphicon-chevron-down'}[sortModel.sOrder > 0]"></i>	
-					</th>
-					<th class="text-center">数据ID</th>
-					<th class="text-center">状态</th>
-					<th class="text-center">操作</th>
-				</tr>
-			</thead>
-			<tbody class='datalist-body  text-center'>
-				<tr ng-repeat="doc in dataArr.data">
-					<td class="text-left"><a href='/admin/website/edit/id/{{doc._id.$id}}'>{{::doc.label}}</a></td>
-					<td>{{::doc.created | dateYmd}}</td>
-					<td>{{::doc.expireDate | dateYmd}}</td>
-					<td>{{::doc.globalSiteId}}</td>
-					<td>{{::doc.active | statusText}}</td>
-					<td>
-						<a href='/admin/client/edit/website-id/{{::doc._id.$id}}'>client</a>
-					</td>
-				</tr>
-			</tbody>
-			<tfoot ng-if="disp.tfoot">
-				<tr class='paginator-row'>
-					<td id='datalist-paginator' colspan=6>
-						<div>
-							<span>page:{{dataArr.currentPage}}/{{dataArr.maxPage}}</span>
-							<a ng-if="disp.prev" href="javascript:;" ng-click="onPage(dataArr.currentPage-1)">上一页</a>
-							<a ng-if="disp.next" href="javascript:;" ng-click="onPage(dataArr.currentPage+1)">下一页</a>
-							<select	style="width: 80px;" class="form-control" ng-model="dataArr.currentPage" ng-change="onPage(dataArr.currentPage)" 
-									ng-options="page for page in dataArr.pageOption"></select>
-						</div>
-						<div>总记录:{{dataArr.dataSize}}</div>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
+<div class='data-list' fc-data-list data-url="<?php echo $this->url('admrs/restroutes', array('controller' => 'rs-website'), true)?>" >
+	<div class='page-actions'>
+		<h3>Website List</h3>
+		<a class='btn btn-primary pull-right' href='/admin/website/create'><i class='fa fa-plus'></i> Create New</a>
 	</div>
-</div></div>
+	<div ng-controller = "searchController" ng-init = "init('articleQueryObj')" class="dataSerach row">
+		<form class="form-horizontal" role="form">
+			
+		</form>
+	</div>
+	<table class='table table-bordered table-hover table-striped'>
+		<thead class='datalist-head'>
+			<tr class='title-row'>
+				<th class="text-center" fc-filter-sort width='600' data-sindex="label">
+					<strong>站点名</strong>
+					<i ng-if="sortModel.isActive" ng-class="{true:'glyphicon glyphicon-chevron-up', false:'glyphicon glyphicon-chevron-down'}[sortModel.sOrder > 0]"></i>
+				</th>
+				<th class="text-center" fc-filter-sort data-sindex="modified" data-is-active = 'true'>
+					<span>创建时间</span>
+					<i ng-if="sortModel.isActive" ng-class="{true:'glyphicon glyphicon-chevron-up', false:'glyphicon glyphicon-chevron-down'}[sortModel.sOrder > 0]"></i>	
+				</th>
+				<th class="text-center" fc-filter-sort data-sindex="hits">
+					<span>到期时间</span>
+					<i ng-if="sortModel.isActive" ng-class="{true:'glyphicon glyphicon-chevron-up', false:'glyphicon glyphicon-chevron-down'}[sortModel.sOrder > 0]"></i>	
+				</th>
+				<th class="text-center">数据ID</th>
+				<th class="text-center">状态</th>
+				<th class="text-center">操作</th>
+			</tr>
+		</thead>
+		<tbody class='datalist-body  text-center'>
+			<tr ng-repeat="doc in dataArr.data">
+				<td class="text-left"><a href='/admin/website/edit/id/{{doc._id.$id}}'>{{::doc.label}}</a></td>
+				<td>{{::doc.created | dateYmd}}</td>
+				<td>{{::doc.expireDate | dateYmd}}</td>
+				<td>{{::doc.globalSiteId}}</td>
+				<td>{{::doc.active | statusText}}</td>
+				<td>
+					<a href='/admin/client/edit/website-id/{{::doc._id.$id}}'>client</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot ng-if="disp.tfoot">
+			<tr class='paginator-row'>
+				<td id='datalist-paginator' colspan=6>
+					<div>
+						<span>page:{{dataArr.currentPage}}/{{dataArr.maxPage}}</span>
+						<a ng-if="disp.prev" href="javascript:;" ng-click="onPage(dataArr.currentPage-1)">上一页</a>
+						<a ng-if="disp.next" href="javascript:;" ng-click="onPage(dataArr.currentPage+1)">下一页</a>
+						<select	style="width: 80px;" class="form-control" ng-model="dataArr.currentPage" ng-change="onPage(dataArr.currentPage)" 
+								ng-options="page for page in dataArr.pageOption"></select>
+					</div>
+					<div>总记录:{{dataArr.dataSize}}</div>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
 
 <script>
-	var adminApp = angular.module('adminApp', ['fcDataModule']);
+	appRequiredModules.push('fcDataModule');
 </script>
 <script type="text/javascript" src="<?php echo $this->path('common')?>/ng/data-list.js"></script>

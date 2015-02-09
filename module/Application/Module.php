@@ -1,11 +1,16 @@
 <?php
 namespace Application;
 
+use Zend\Mvc\MvcEvent;
+
 class Module
 {
 	public function init($moduleManager)
 	{
+		$eventManager = $moduleManager->getEventManager();
+		$sharedEventManager = $eventManager->getSharedManager();
 		
+		$sharedEventManager->attach('Zend\Mvc\Application', 'dispatch', array($this, 'setController'), 100);
 	}
 	
     public function getConfig()
@@ -18,9 +23,18 @@ class Module
         return array(
             'Zend\Loader\StandardAutoloader' => array(
 				'namespaces' => array(
-					__NAMESPACE__	=> __DIR__ . '/src/' . __NAMESPACE__
+					__NAMESPACE__	=> __DIR__ . '/src/' . __NAMESPACE__,
+					'Account' => __DIR__ . '/src/Account'
 				)
             ),
         );
+    }
+    
+    public function setController(MvcEvent $e)
+    {
+    	$rm = $e->getRouteMatch();
+    	
+    	$viewModel = $e->getViewModel();
+    	$viewModel->setVariable('controller', $rm->getParam('controller'));
     }
 }
