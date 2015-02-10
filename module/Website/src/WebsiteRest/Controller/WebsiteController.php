@@ -30,7 +30,7 @@ class WebsiteController extends AbstractRestfulController
 		$pageSize = 20;
 		$skip = $pageSize * ($currentPage - 1);
 		$dm = $this->getServiceLocator()->get('DocumentManager');
-		$qb = $dm->createQueryBuilder('Application\Document\Website')->select('id', 'active', 'created', 'globalSiteId', 'label', 'expireDate');
+		$qb = $dm->createQueryBuilder('Account\Document\Website')->select('id', 'active', 'created', 'globalSiteId', 'label', 'expireDate');
 
 		if(!empty($label)) {
 			$qb->field("label")->equals(new MongoRegex("/" . $label . "/"));
@@ -64,6 +64,9 @@ class WebsiteController extends AbstractRestfulController
 		
 		$data = $doc->getArrayCopy();
 		$data['domains'] = $doc->getDomains();
+		
+		$config = $this->getServiceLocator()->get('Config');
+		$data['availableModule'] = $config['modules'];
 		return new JsonModel($data);
 	}
 	
@@ -86,7 +89,7 @@ class WebsiteController extends AbstractRestfulController
 	public function update($id, $data)
 	{
 		$dm = $this->getServiceLocator()->get('DocumentManager');
-		$doc = $dm->getRepository('Application\Document\Website')->findOneById($id);
+		$doc = $dm->getRepository('Account\Document\Website')->findOneById($id);
 		
 		$doc->exchangeArray($data);
 		$dm->persist($doc);

@@ -36,5 +36,6 @@ class Module
     	
     	$viewModel = $e->getViewModel();
     	$viewModel->setVariable('controller', $rm->getParam('controller'));
+    	$viewModel->setVariable('action', $rm->getParam('action'));
     }
 }

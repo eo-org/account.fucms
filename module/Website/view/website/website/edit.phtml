@@ -1,6 +1,6 @@
 <div class='container-fluid' fc-website-editor data-id='<?php echo $this->id?>'><div class='row'>
 	<div class='page-actions'>
-		<h3>Website Edit: {{::formData.label}}</h3>
+		<h3>{{::formData.label}}</h3>
 		<button type='button' ng-click='onConfirm()' class='btn btn-primary pull-right'>Confirm</button>
 	</div>
 	<div>
@@ -22,32 +22,48 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-md-2">Domain names:</label>
-			<div class="col-md-10">
-				<ul class='increament-list'>
-					<li ng-class='{true: "default-domain", false: ""}[domain.isDefault]' ng-repeat='(key, domain) in formData.domains'>
-						{{domain.domainName}}
-						<div class='clickable pull-right' ng-click='onRemoveDomain(domain.id)' ng-if='!domain.isDefault'>
-							<i class='fa fa-minus-circle icon-danger'></i>
-						</div>
-						<div class='clickable pull-right' ng-click='onToggleDomainActive(domain.id, domain.isActive)' ng-if='domain.isDefault'>
-							<i ng-show='domain.isActive' class='fa fa-toggle-on icon-active'></i>
-							<i ng-hide='domain.isActive' class='fa fa-toggle-off'></i>
-						</div>
-					</li>
-					<li class='insert-new'>
-						<button ng-hide='disp.addDomainForm' type='button' class='btn btn-primary btn-xs' ng-click='onAddDomain()'>add new domain</button>
-						<div ng-show='disp.addDomainForm' class='row'>
-							<div class='col-sm-4'>
-								<input id="domain-name" name="domainName" class="form-control input-sm" placeholder="Domain Name" ng-model="domainData.domainName" type="text" />
-							</div>
-							<div class='col-sm-2'>
-								<button type="button" class='btn btn-success btn-sm' ng-click='onConfirmDomain()'>Confirm</button>
-							</div>
-						</div>
-					</li>
+			<label class="control-label col-md-2">Modules:</label>
+			<div class='multiple-select-list'><div class="col-md-4">
+				<ul>
+					<li class='list-header'>Selected Modules</li>
+					<li ng-repeat='moduleName in formData.extraModule'>{{moduleName}} <i ng-click='onRemoveModule(moduleName)' class='fa fa-minus-circle icon-danger clickable pull-right'></i></li>
 				</ul>
 			</div>
+			<div class='col-md-1'>
+				
+			</div>
+			<div class="col-md-4">
+				<ul>
+					<li class='list-header'>Available Modules</li>
+					<li ng-repeat='moduleName in availableModule'><i ng-click='onAddModule(moduleName)' class='fa fa-arrow-circle-left icon-active clickable pull-left'></i>{{moduleName}}</li>
+				</ul>
+			</div></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">Domain Names:</label>
+			<div class="col-md-10"><ul class='increament-list'>
+				<li ng-class='{true: "default-domain", false: ""}[domain.isDefault]' ng-repeat='(key, domain) in formData.domains'>
+					{{domain.domainName}}
+					<div class='clickable pull-right' ng-click='onRemoveDomain(domain.id)' ng-if='!domain.isDefault'>
+						<i class='fa fa-minus-circle icon-danger'></i>
+					</div>
+					<div class='clickable pull-right' ng-click='onToggleDomainActive(domain.id, domain.isActive)' ng-if='domain.isDefault'>
+						<i ng-show='domain.isActive' class='fa fa-toggle-on icon-active'></i>
+						<i ng-hide='domain.isActive' class='fa fa-toggle-off'></i>
+					</div>
+				</li>
+				<li class='insert-new'>
+					<button ng-hide='disp.addDomainForm' type='button' class='btn btn-primary btn-xs' ng-click='onAddDomain()'>add new domain</button>
+					<div ng-show='disp.addDomainForm' class='row'>
+						<div class='col-sm-4'>
+							<input id="domain-name" name="domainName" class="form-control input-sm" placeholder="Domain Name" ng-model="domainData.domainName" type="text" />
+						</div>
+						<div class='col-sm-2'>
+							<button type="button" class='btn btn-success btn-sm' ng-click='onConfirmDomain()'>Confirm</button>
+						</div>
+					</div>
+				</li>
+			</ul></div>
 		</div>
 	</form>
 </div></div>

@@ -33,6 +33,9 @@ class Website extends AbstractDocument
 	/** @ODM\EmbedMany(targetDocument="Account\Document\Domain")  */
 	protected $domains = array();
 	
+	/** @ODM\Field(type="hash") */
+	protected $extraModule = "";
+	
 	/** @ODM\Field(type="date") */
 	protected $created;
 	
@@ -58,6 +61,9 @@ class Website extends AbstractDocument
 			$zh = new Zh();
 			$this->pyInitial = $zh->getInitials($data['label']);
 		}
+		if(isset($data['extraModule'])) {
+			$this->extraModule = $data['extraModule'];
+		}
 		if(empty($this->id)) {
 			$this->created = new \DateTime();
 			$this->expireDate = new \DateTime();
@@ -71,6 +77,7 @@ class Website extends AbstractDocument
 			'globalSiteId' => $this->globalSiteId,
 			'label' => $this->label,
 			'uniqueSubdomain' => $this->uniqueSubdomain,
+			'extraModule' => $this->extraModule,
 			'created' => $this->created,
 			'expireDate' => $this->expireDate,
 			'storageCapacity' => $this->storageCapacity,

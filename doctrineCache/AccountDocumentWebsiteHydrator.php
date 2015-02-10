@@ -96,6 +96,14 @@ class AccountDocumentWebsiteHydrator implements HydratorInterface
         $this->class->reflFields['domains']->setValue($document, $return);
         $hydratedData['domains'] = $return;
 
+        /** @Field(type="hash") */
+        if (isset($data['extraModule'])) {
+            $value = $data['extraModule'];
+            $return = $value;
+            $this->class->reflFields['extraModule']->setValue($document, $return);
+            $hydratedData['extraModule'] = $return;
+        }
+
         /** @Field(type="date") */
         if (isset($data['created'])) {
             $value = $data['created'];

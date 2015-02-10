@@ -93,5 +93,15 @@ return array(
 		'invokables' => array(
 			'path' => 'Application\View\Helper\Path',
 		)
+	),
+	'modules' => array(
+		'About',
+		'Ad',
+		'Analytics',
+		'Disqus',
+		'Gallery',
+		'Message',
+		'Profile',
+		'Video',
 	)
 );
