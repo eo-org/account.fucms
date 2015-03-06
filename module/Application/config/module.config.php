@@ -102,6 +102,8 @@ return array(
 		'Gallery',
 		'Message',
 		'Profile',
+		'User',
 		'Video',
+		'VirtualProduct'
 	)
 );
