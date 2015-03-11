@@ -100,6 +100,7 @@ return array(
 		'Analytics',
 		'Disqus',
 		'Gallery',
+		'Mail',
 		'Message',
 		'Profile',
 		'User',
