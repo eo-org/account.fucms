@@ -105,6 +105,7 @@ return array(
 		'Profile',
 		'User',
 		'Video',
-		'VirtualProduct'
+		'VirtualProduct',
+		'Weixin'
 	)
 );
