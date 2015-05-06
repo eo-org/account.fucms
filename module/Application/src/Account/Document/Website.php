@@ -37,9 +37,6 @@ class Website extends AbstractDocument
 	protected $extraModule = "";
 	
 	/** @ODM\Field(type="date") */
-	protected $created;
-	
-	/** @ODM\Field(type="date") */
 	protected $expireDate;
 	
 	/** @ODM\Field(type="int") */
@@ -56,6 +53,9 @@ class Website extends AbstractDocument
 	
 	public function exchangeArray($data)
 	{
+		if(isset($data['uniqueSubdomain'])) {
+			$this->uniqueSubdomain = $data['uniqueSubdomain'];
+		}
 		if(isset($data['label'])) {
 			$this->label = $data['label'];
 			$zh = new Zh();
@@ -63,9 +63,10 @@ class Website extends AbstractDocument
 		}
 		if(isset($data['extraModule'])) {
 			$this->extraModule = $data['extraModule'];
+		} else {
+			$this->extraModule = array();
 		}
 		if(empty($this->id)) {
-			$this->created = new \DateTime();
 			$this->expireDate = new \DateTime();
 		}
 	}
@@ -78,7 +79,6 @@ class Website extends AbstractDocument
 			'label' => $this->label,
 			'uniqueSubdomain' => $this->uniqueSubdomain,
 			'extraModule' => $this->extraModule,
-			'created' => $this->created,
 			'expireDate' => $this->expireDate,
 			'storageCapacity' => $this->storageCapacity,
 			'trial'	=> $this->trial,

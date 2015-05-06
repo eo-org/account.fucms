@@ -75,15 +75,29 @@ class WebsiteController extends AbstractRestfulController
 		$sm = $this->getServiceLocator();
 		$dm = $sm->get('DocumentManager');
 		
-		$websiteDoc = new Website();
-		$websiteDoc->exchangeArray($data);
+		$uniqueSubdomainCount = $dm->createQueryBuilder('Account\Document\Website')
+			->field('uniqueSubdomain')->equals($data['uniqueSubdomain'])
+			->getQuery()
+			->execute()
+			->count();
 		
-		$dm->persist($websiteDoc);
-		$dm->flush();
-		
-		return new JsonModel(array(
-			'id' => $websiteDoc->getId()
-		));
+		if($uniqueSubdomainCount > 0) {
+			$this->getResponse()->setStatusCode(409);
+			return new JsonModel(array(
+				'errMsg'	=> 'unique subdomain duplicate',
+				'errField'	=> 'uniqueSubdomain'
+			));
+		} else {
+			$websiteDoc = new Website();
+			$websiteDoc->exchangeArray($data);
+			
+			$dm->persist($websiteDoc);
+			$dm->flush();
+			
+			return new JsonModel(array(
+				'id' => $websiteDoc->getId()
+			));
+		}
 	}
 	
 	public function update($id, $data)

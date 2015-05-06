@@ -105,14 +105,6 @@ class AccountDocumentWebsiteHydrator implements HydratorInterface
         }
 
         /** @Field(type="date") */
-        if (isset($data['created'])) {
-            $value = $data['created'];
-            if ($value instanceof \MongoDate) { $date = new \DateTime(); $date->setTimestamp($value->sec); $return = $date; } else { $return = new \DateTime($value); }
-            $this->class->reflFields['created']->setValue($document, clone $return);
-            $hydratedData['created'] = $return;
-        }
-
-        /** @Field(type="date") */
         if (isset($data['expireDate'])) {
             $value = $data['expireDate'];
             if ($value instanceof \MongoDate) { $date = new \DateTime(); $date->setTimestamp($value->sec); $return = $date; } else { $return = new \DateTime($value); }

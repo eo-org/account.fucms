@@ -103,6 +103,7 @@ return array(
 		'Mail',
 		'Message',
 		'Profile',
+		'SimpleAdmin',
 		'User',
 		'Video',
 		'VirtualProduct',

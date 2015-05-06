@@ -13,7 +13,8 @@
 			<div class="col-sm-10">
 				<input id="uniqueSubdomain" name="uniqueSubdomain" class="form-control" placeholder="unique subdmain name" ng-model="formData.uniqueSubdomain" type="text" ng-minlength="3" required>
 				<p ng-show="creatorForm.uniqueSubdomain.$error.minlength" class="help-block">at least three charaters are required!</p>
-				<p ng-show='creatorForm.uniqueSubdomain.$error.required' class='help-block'>subdomain name is required!</p>									
+				<p ng-show='creatorForm.uniqueSubdomain.$error.required' class='help-block'>subdomain name is required!</p>
+				<p ng-show='creatorForm.uniqueSubdomain.$error.required' class='help-block'>subdomain name is required!</p>
 			</div>
 		</div>
 		<button type='button' class='btn btn-primary' ng-click="onConfirm()">Create New Website</button>

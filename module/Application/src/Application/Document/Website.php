@@ -34,9 +34,6 @@ class Website extends AbstractDocument
 	protected $domains = array();
 	
 	/** @ODM\Field(type="date") */
-	protected $created;
-	
-	/** @ODM\Field(type="date") */
 	protected $expireDate;
 	
 	/** @ODM\Field(type="int") */
@@ -53,6 +50,9 @@ class Website extends AbstractDocument
 	
 	public function exchangeArray($data)
 	{
+		print_r($data);
+		
+		
 		if(isset($data['uniqueSubdomain'])) {
 			$this->uniqueSubdomain = $data['uniqueSubdomain'];
 		}
@@ -62,9 +62,10 @@ class Website extends AbstractDocument
 			$this->pyInitial = $zh->getInitials($data['label']);
 		}
 		if(empty($this->id)) {
-			$this->created = new \DateTime();
 			$this->expireDate = new \DateTime();
 		}
+		
+		
 	}
 	
 	public function getArrayCopy()
@@ -73,7 +74,6 @@ class Website extends AbstractDocument
 			'globalSiteId' => $this->globalSiteId,
 			'label' => $this->label,
 			'uniqueSubdomain' => $this->uniqueSubdomain,
-			'created' => $this->created,
 			'expireDate' => $this->expireDate,
 			'storageCapacity' => $this->storageCapacity,
 			'trial'	=> $this->trial,
